@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "59821998645",
+    "project_id": "syncfusion-flutter-calendar",
+    "storage_bucket": "syncfusion-flutter-calendar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59821998645:android:2d5242fedd5c940f6fe77c",
+        "android_client_info": {
+          "package_name": "com.example.syncfusioncalendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59821998645-k1sc3iuvv3l36kupsdciabkd28eqgrv6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.syncfusioncalendar",
+            "certificate_hash": "f01beefeea33ed7555bb20e6a9c3c67a2cb942a2"
+          }
+        },
+        {
+          "client_id": "59821998645-dughetg06lo0ui0ii8emv9bfhtv79hge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6cQMh_tn0tr8ruUlVGOsXw2Ct-NW8N8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "59821998645-dughetg06lo0ui0ii8emv9bfhtv79hge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
