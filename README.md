@@ -1,6 +1,6 @@
-# syncfusioncalendar
+# Simple Event Scheduler - Syncfusion
 
-A new Flutter application.
+Manage all your events and activities.
 
 ## Getting Started
 
