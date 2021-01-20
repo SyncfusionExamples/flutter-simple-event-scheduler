@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Customized Calendar',
+      title: 'Simple Event Calendar',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -49,7 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     _dataSource = GoogleDataSource();
-    calendarData = CalendarData(_dataSource, updateUI);
+    calendarData = CalendarData();
+    calendarData.refresh(_dataSource, updateUI);
     _isDBLoaded = false;
     calendarData.updateSettingFromDB(updateUI)
       ..then((value) {
@@ -95,7 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
         calendarTapDetails.targetElement == CalendarElement.allDayPanel;
     DateTime _selectedDate;
 
-    if (_controller.view == CalendarView.month && calendarTapDetails.targetElement != CalendarElement.appointment) {
+    if (_controller.view == CalendarView.month &&
+        calendarTapDetails.targetElement != CalendarElement.appointment) {
       setState(() {
         /// Update the draw content when calendar view changed.
         _controller.view = CalendarView.day;
@@ -259,7 +261,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   onTap: (() async {
                     showDialog(
-                        context: context,barrierDismissible: false,
+                        context: context,
+                        barrierDismissible: false,
                         builder: (BuildContext context) {
                           return Center(
                             child: CircularProgressIndicator(),
@@ -429,20 +432,44 @@ class _MyHomePageState extends State<MyHomePage> {
             body: Container(
                 color: Colors.white,
                 alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.widgets,
-                      color: Colors.black54,
-                    ),
-                    Text(
-                      ' Syncfusion Calendar',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ],
-                )),
+                child: Column(children: [
+                  Expanded(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.date_range,
+                        color: Colors.black54,
+                        size: 40,
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(top: 5),
+                          child: Text(
+                            ' Simple Event Calendar',
+                            style: TextStyle(fontSize: 22),
+                          )),
+                    ],
+                  )),
+                  Container(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                      child: Text(
+                        'From',
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500),
+                      )),
+                  Container(
+                      padding: EdgeInsets.only(bottom: 30),
+                      child: Text(
+                        'Syncfusion',
+                        style: TextStyle(
+                            color: Colors.deepOrange,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w500),
+                      ))
+                ])),
           )
         : Scaffold(
             drawer: Container(
@@ -459,7 +486,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           text: 'Sign out',
                           onTap: (() async {
                             showDialog(
-                                context: context,barrierDismissible: false,
+                                context: context,
+                                barrierDismissible: false,
                                 builder: (BuildContext context) {
                                   return Center(
                                     child: CircularProgressIndicator(),

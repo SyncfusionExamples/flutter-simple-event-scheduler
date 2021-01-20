@@ -27,14 +27,12 @@ class _LoadingStream {
 }
 
 class CalendarData {
-  CalendarData(GoogleDataSource dataSource, VoidCallback updateCalendarUI) {
-    loadFirebase(dataSource, updateCalendarUI);
+  CalendarData() {
+    loadFirebase();
   }
 
-  void loadFirebase(
-      GoogleDataSource dataSource, VoidCallback updateCalendarUI) async {
+  void loadFirebase() async {
     _auth = auth.FirebaseAuth.instance;
-    refresh(dataSource, updateCalendarUI);
   }
 
   final DatabaseHelper db =
@@ -326,6 +324,11 @@ class CalendarData {
 
   Future<void> updateSettingFromDB(VoidCallback updateCalendarUI) async {
     if (kIsWeb) {
+      currentUser.value = await _auth.currentUser();
+      if (currentUser.value != null) {
+        googleUser ??= await _googleSignIn.signInSilently();
+      }
+
       await _initializeSettings(updateCalendarUI);
       return;
     }
@@ -347,12 +350,14 @@ class CalendarData {
       showArrows = false;
     }
 
+    if (updateCalendarUI == null) {
+      return;
+    }
     updateCalendarUI();
   }
 
   void refresh(
       GoogleDataSource dataSource, VoidCallback updateCalendarUI) async {
-    updateSettingFromDB(updateCalendarUI);
     if (kIsWeb) {
       loadingStream.send.add(true);
       currentUser.value = await _auth.currentUser();
@@ -362,6 +367,7 @@ class CalendarData {
       }
       loadingStream.send.add(false);
     } else {
+      updateSettingFromDB(updateCalendarUI);
       loadExistingAppointments(dataSource, updateCalendarUI);
     }
   }
@@ -519,6 +525,9 @@ class CalendarData {
     }
 
     await getFirebaseData();
+    if (updateCalendarUI == null) {
+      return;
+    }
     updateCalendarUI();
   }
 
